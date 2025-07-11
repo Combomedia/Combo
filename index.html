@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Vendedores - Agua Pura</title>
+    <title>Registro - Combomedia</title>
     <style>
         * {
             margin: 0;
@@ -286,16 +286,20 @@
                 display: none;
             }
         }
+        
+        .conditional-field {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <div class="logo">
-                <span class="logo-icon">💧</span>
-                AGUA PURA
+                <span class="logo-icon">📡</span>
+                COMBOMEDIA
             </div>
-            <h1>Registro de Vendedores</h1>
+            <h1>Formulario de Registro</h1>
             <p class="subtitle">Complete todos los datos requeridos para el registro en el sistema</p>
         </header>
         
@@ -306,23 +310,23 @@
             </div>
             
             <div class="form-container">
-                <form id="formVendedor">
+                <form id="formRegistro">
                     <h2 class="section-title">Datos Personales</h2>
                     <table>
                         <tr>
                             <td>
-                                <label for="nombre">Nombre *</label>
-                                <input type="text" id="nombre" required>
+                                <label for="cedula">Cédula *</label>
+                                <input type="text" id="cedula" placeholder="Ej: 12345678" required>
                             </td>
                             <td>
-                                <label for="apellido">Apellido *</label>
-                                <input type="text" id="apellido" required>
+                                <label for="nombre">Nombre *</label>
+                                <input type="text" id="nombre" required>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label for="cedula">Cédula *</label>
-                                <input type="text" id="cedula" placeholder="Ej: 12345678" required>
+                                <label for="email">Correo Electrónico *</label>
+                                <input type="email" id="email" placeholder="Ej: nombre@ejemplo.com" required>
                             </td>
                             <td>
                                 <label for="telefono">Teléfono *</label>
@@ -331,117 +335,100 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="correo">Correo Electrónico *</label>
-                                <input type="email" id="correo" placeholder="Ej: nombre@ejemplo.com" required>
-                            </td>
-                            <td>
                                 <label for="fecha_nac">Fecha de Nacimiento *</label>
                                 <input type="date" id="fecha_nac" required>
                             </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <label for="fecha_ingreso">Fecha de Ingreso a la Empresa *</label>
-                                <input type="date" id="fecha_ingreso" required>
-                            </td>
-                        </tr>
-                    </table>
-                    
-                    <h2 class="section-title">Datos de Habitación</h2>
-                    <table>
-                        <tr>
                             <td>
-                                <label for="estado">Estado *</label>
-                                <input type="text" id="estado" required>
-                            </td>
-                            <td>
-                                <label for="municipio">Municipio *</label>
-                                <input type="text" id="municipio" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="parroquia">Parroquia *</label>
-                                <input type="text" id="parroquia" required>
-                            </td>
-                            <td>
-                                <label for="urb_sector">Urb/Sector *</label>
-                                <input type="text" id="urb_sector" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="av_calle">Av/Calle *</label>
-                                <input type="text" id="av_calle" required>
-                            </td>
-                            <td>
-                                <label for="nro_casa">Nro. Casa/Apto *</label>
-                                <input type="text" id="nro_casa" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <label for="anios_zona">Años en la zona *</label>
-                                <input type="number" id="anios_zona" min="0" required>
+                                <label>Sexo *</label>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="sexo" value="Masculino" required> Masculino</label>
+                                    <label><input type="radio" name="sexo" value="Femenino"> Femenino</label>
+                                </div>
                             </td>
                         </tr>
                     </table>
                     
-                    <h2 class="section-title">Datos del Vehículo</h2>
+                    <h2 class="section-title">Datos Adicionales</h2>
                     <table>
                         <tr>
                             <td>
-                                <label for="modelo">Modelo *</label>
-                                <input type="text" id="modelo" required>
-                            </td>
-                            <td>
-                                <label for="marca">Marca *</label>
-                                <input type="text" id="marca" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="placa">Placa *</label>
-                                <input type="text" id="placa" placeholder="Ej: ABC-123" required>
-                            </td>
-                            <td>
-                                <label for="cilindrada">Cilindrada *</label>
-                                <input type="text" id="cilindrada" placeholder="Ej: 1600cc" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="serial_motor">Serial Motor *</label>
-                                <input type="text" id="serial_motor" required>
-                            </td>
-                            <td>
-                                <label for="serial_chasis">Serial Chasis *</label>
-                                <input type="text" id="serial_chasis" required>
-                            </td>
-                        </tr>
-                    </table>
-                    
-                    <h2 class="section-title">Otros Datos</h2>
-                    <table>
-                        <tr>
-                            <td>
-                                <label for="sucursal">Sucursal *</label>
-                                <select id="sucursal" required>
-                                    <option value="">Seleccione una sucursal</option>
-                                    <option value="Castillejo">Castillejo</option>
-                                    <option value="Araira">Araira</option>
-                                    <option value="Guatire">Guatire</option>
-                                    <option value="Buenaventura">Buenaventura</option>
-                                    <option value="Guarenas">Guarenas</option>
+                                <label for="interes">Interés *</label>
+                                <select id="interes" required>
+                                    <option value="">Seleccione una opción</option>
+                                    <option value="Comunidad">Comunidad</option>
+                                    <option value="Comuna">Comuna</option>
+                                    <option value="Fundacion">Fundación</option>
                                 </select>
                             </td>
+                        </tr>
+                        
+                        <!-- Campo Comunidad (aparece cuando se selecciona "Comunidad") -->
+                        <tr id="comunidadField" class="conditional-field">
                             <td>
-                                <label>Conocimiento de la zona *</label>
-                                <div class="radio-group">
-                                    <label><input type="radio" name="conocimiento" value="bajo" required> Bajo</label>
-                                    <label><input type="radio" name="conocimiento" value="medio"> Medio</label>
-                                    <label><input type="radio" name="conocimiento" value="alto"> Alto</label>
-                                </div>
+                                <label for="comunidad">Comunidad *</label>
+                                <select id="comunidad">
+                                    <option value="">Seleccione una comunidad</option>
+                                    <option value="Tejar">Tejar</option>
+                                    <option value="San Martin">San Martin</option>
+                                    <option value="Mohedano">Mohedano</option>
+                                    <option value="Anauco">Anauco</option>
+                                    <option value="Tajama">Tajama</option>
+                                    <option value="Catuche">Catuche</option>
+                                    <option value="Caroata">Caroata</option>
+                                    <option value="Tacagua">Tacagua</option>
+                                </select>
+                            </td>
+                        </tr>
+                        
+                        <!-- Campo Comuna (aparece cuando se selecciona "Comuna") -->
+                        <tr id="comunaField" class="conditional-field">
+                            <td>
+                                <label for="comuna">Comuna *</label>
+                                <select id="comuna">
+                                    <option value="">Seleccione una comuna</option>
+                                    <option value="Parque Central">Parque Central</option>
+                                </select>
+                            </td>
+                        </tr>
+                        
+                        <!-- Campo Residencia (aparece cuando se selecciona "Comuna") -->
+                        <tr id="residenciaField" class="conditional-field">
+                            <td>
+                                <label for="residencia">Residencia *</label>
+                                <select id="residencia">
+                                    <option value="">Seleccione una residencia</option>
+                                    <option value="Tejar">Tejar</option>
+                                    <option value="San Martin">San Martin</option>
+                                    <option value="Mohedano">Mohedano</option>
+                                    <option value="Anauco">Anauco</option>
+                                    <option value="Tajama">Tajama</option>
+                                    <option value="Catuche">Catuche</option>
+                                    <option value="Caroata">Caroata</option>
+                                    <option value="Tacagua">Tacagua</option>
+                                </select>
+                            </td>
+                        </tr>
+                        
+                        <!-- Campo Fundaciones (aparece cuando se selecciona "Fundación") -->
+                        <tr id="fundacionesField" class="conditional-field">
+                            <td>
+                                <label for="fundaciones">Fundaciones *</label>
+                                <select id="fundaciones">
+                                    <option value="">Seleccione una fundación</option>
+                                    <option value="Misión Ribas">Misión Ribas</option>
+                                    <option value="Fundación Causa Campesina">Fundación Causa Campesina</option>
+                                    <option value="Observatorio Popular de medios">Observatorio Popular de medios</option>
+                                </select>
+                            </td>
+                        </tr>
+                        
+                        <!-- Campo Apto (aparece cuando se selecciona cualquier opción) -->
+                        <tr id="aptoField" class="conditional-field">
+                            <td>
+                                <label for="apto">Apto *</label>
+                                <select id="apto" required>
+                                    <option value="">Seleccione un apartamento</option>
+                                </select>
                             </td>
                         </tr>
                     </table>
@@ -453,7 +440,7 @@
             </div>
             
             <div class="footer">
-                <p>Sistema de Registro de Vendedores &copy; 2023 - Empresa Agua Pura</p>
+                <p>Sistema de Registro &copy; 2023 - Combomedia</p>
                 <p>Los datos se guardan automáticamente en nuestra base de datos</p>
             </div>
         </div>
@@ -512,6 +499,116 @@
             document.getElementById('statusModal').style.display = 'none';
         }
         
+        // Llenar opciones de apartamentos
+        function fillAptoOptions() {
+            const aptoSelect = document.getElementById('apto');
+            aptoSelect.innerHTML = '<option value="">Seleccione un apartamento</option>';
+            
+            // Generar apartamentos del 01A al 19Q
+            for (let bloque = 1; bloque <= 19; bloque++) {
+                const letras = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V'];
+                for (let letra of letras) {
+                    const bloqueStr = bloque < 10 ? `0${bloque}` : bloque;
+                    const option = document.createElement('option');
+                    option.value = `${bloqueStr}${letra}`;
+                    option.textContent = `${bloqueStr}${letra}`;
+                    aptoSelect.appendChild(option);
+                }
+            }
+            
+            // Generar oficinas OF101-OF120, OF201-OF220
+            for (let piso = 1; piso <= 2; piso++) {
+                for (let num = 1; num <= 20; num++) {
+                    const numStr = num < 10 ? `0${num}` : num;
+                    const option = document.createElement('option');
+                    option.value = `OF${piso}${numStr}`;
+                    option.textContent = `OF${piso}${numStr}`;
+                    aptoSelect.appendChild(option);
+                }
+            }
+            
+            // Agregar PH
+            const phOption = document.createElement('option');
+            phOption.value = 'PH';
+            phOption.textContent = 'PH';
+            aptoSelect.appendChild(phOption);
+        }
+        
+        // Manejar campos condicionales
+        function setupConditionalFields() {
+            const interesSelect = document.getElementById('interes');
+            const comunidadField = document.getElementById('comunidadField');
+            const comunaField = document.getElementById('comunaField');
+            const residenciaField = document.getElementById('residenciaField');
+            const fundacionesField = document.getElementById('fundacionesField');
+            const aptoField = document.getElementById('aptoField');
+            
+            // Ocultar todos los campos condicionales inicialmente
+            comunidadField.style.display = 'none';
+            comunaField.style.display = 'none';
+            residenciaField.style.display = 'none';
+            fundacionesField.style.display = 'none';
+            aptoField.style.display = 'none';
+            
+            // Llenar opciones de apartamentos
+            fillAptoOptions();
+            
+            // Evento para cambio en interés
+            interesSelect.addEventListener('change', function() {
+                const interes = this.value;
+                
+                // Ocultar todos los campos
+                comunidadField.style.display = 'none';
+                comunaField.style.display = 'none';
+                residenciaField.style.display = 'none';
+                fundacionesField.style.display = 'none';
+                aptoField.style.display = 'none';
+                
+                // Resetear valores
+                document.getElementById('comunidad').value = '';
+                document.getElementById('comuna').value = '';
+                document.getElementById('residencia').value = '';
+                document.getElementById('fundaciones').value = '';
+                document.getElementById('apto').value = '';
+                
+                // Mostrar campos según selección
+                if (interes === 'Comunidad') {
+                    comunidadField.style.display = 'table-row';
+                } else if (interes === 'Comuna') {
+                    comunaField.style.display = 'table-row';
+                } else if (interes === 'Fundacion') {
+                    fundacionesField.style.display = 'table-row';
+                }
+            });
+            
+            // Evento para mostrar residencia cuando se selecciona comuna
+            document.getElementById('comuna').addEventListener('change', function() {
+                if (this.value) {
+                    residenciaField.style.display = 'table-row';
+                } else {
+                    residenciaField.style.display = 'none';
+                    aptoField.style.display = 'none';
+                }
+            });
+            
+            // Evento para mostrar apto cuando se selecciona comunidad, residencia o fundación
+            const showAptoFields = [document.getElementById('comunidad'), 
+                                  document.getElementById('residencia'), 
+                                  document.getElementById('fundaciones')];
+            
+            showAptoFields.forEach(field => {
+                if (field) {
+                    field.addEventListener('change', function() {
+                        if (this.value) {
+                            aptoField.style.display = 'table-row';
+                        } else {
+                            aptoField.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        }
+        
         // Función para validar formulario
         function validarFormulario() {
             // Validación de cédula (8-10 dígitos)
@@ -529,7 +626,7 @@
             }
 
             // Validación de correo
-            const correo = document.getElementById('correo').value;
+            const correo = document.getElementById('email').value;
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
                 showModal('Error', 'Correo electrónico inválido: por favor ingrese un correo válido', false, true);
                 return false;
@@ -542,32 +639,48 @@
                 showModal('Error', 'Fecha de nacimiento inválida: debe ser una fecha anterior al día de hoy', false, true);
                 return false;
             }
-
-            // Validación de fecha de ingreso
-            const fechaIngreso = new Date(document.getElementById('fecha_ingreso').value);
-            if (fechaIngreso > hoy) {
-                showModal('Error', 'Fecha de ingreso inválida: no puede ser posterior al día de hoy', false, true);
+            
+            // Validar sexo
+            const sexo = document.querySelector('input[name="sexo"]:checked');
+            if (!sexo) {
+                showModal('Error', 'Por favor seleccione el sexo', false, true);
                 return false;
             }
             
-            // Validación de años en la zona
-            const aniosZona = document.getElementById('anios_zona').value;
-            if (aniosZona < 0) {
-                showModal('Error', 'Años en la zona inválidos: no puede ser un valor negativo', false, true);
-                return false;
+            // Validar campos condicionales
+            const interes = document.getElementById('interes').value;
+            
+            if (interes === 'Comunidad') {
+                const comunidad = document.getElementById('comunidad').value;
+                if (!comunidad) {
+                    showModal('Error', 'Por favor seleccione una comunidad', false, true);
+                    return false;
+                }
+            } else if (interes === 'Comuna') {
+                const comuna = document.getElementById('comuna').value;
+                const residencia = document.getElementById('residencia').value;
+                
+                if (!comuna) {
+                    showModal('Error', 'Por favor seleccione una comuna', false, true);
+                    return false;
+                }
+                
+                if (!residencia) {
+                    showModal('Error', 'Por favor seleccione una residencia', false, true);
+                    return false;
+                }
+            } else if (interes === 'Fundacion') {
+                const fundaciones = document.getElementById('fundaciones').value;
+                if (!fundaciones) {
+                    showModal('Error', 'Por favor seleccione una fundación', false, true);
+                    return false;
+                }
             }
-
-            // Validación de placa (formato ABC-123)
-            const placa = document.getElementById('placa').value;
-            if (!/^[A-Z]{3}-\d{3}$/.test(placa)) {
-                showModal('Error', 'Placa inválida: debe tener el formato ABC-123 (3 letras, guión y 3 números)', false, true);
-                return false;
-            }
-
-            // Validación de conocimiento de la zona
-            const conocimiento = document.querySelector('input[name="conocimiento"]:checked');
-            if (!conocimiento) {
-                showModal('Error', 'Por favor seleccione el nivel de conocimiento de la zona', false, true);
+            
+            // Validar apto
+            const apto = document.getElementById('apto').value;
+            if (!apto) {
+                showModal('Error', 'Por favor seleccione un apartamento', false, true);
                 return false;
             }
 
@@ -581,28 +694,18 @@
             
             // Obtener valores del formulario
             const formData = new FormData();
-            formData.append('nombre', document.getElementById('nombre').value);
-            formData.append('apellido', document.getElementById('apellido').value);
             formData.append('cedula', document.getElementById('cedula').value);
+            formData.append('nombre', document.getElementById('nombre').value);
+            formData.append('email', document.getElementById('email').value);
             formData.append('telefono', document.getElementById('telefono').value);
-            formData.append('correo', document.getElementById('correo').value);
             formData.append('fecha_nac', document.getElementById('fecha_nac').value);
-            formData.append('fecha_ingreso', document.getElementById('fecha_ingreso').value);
-            formData.append('estado', document.getElementById('estado').value);
-            formData.append('municipio', document.getElementById('municipio').value);
-            formData.append('parroquia', document.getElementById('parroquia').value);
-            formData.append('urb_sector', document.getElementById('urb_sector').value);
-            formData.append('av_calle', document.getElementById('av_calle').value);
-            formData.append('nro_casa', document.getElementById('nro_casa').value);
-            formData.append('anios_zona', document.getElementById('anios_zona').value);
-            formData.append('modelo', document.getElementById('modelo').value);
-            formData.append('marca', document.getElementById('marca').value);
-            formData.append('placa', document.getElementById('placa').value);
-            formData.append('cilindrada', document.getElementById('cilindrada').value);
-            formData.append('serial_motor', document.getElementById('serial_motor').value);
-            formData.append('serial_chasis', document.getElementById('serial_chasis').value);
-            formData.append('sucursal', document.getElementById('sucursal').value);
-            formData.append('conocimiento', document.querySelector('input[name="conocimiento"]:checked').value);
+            formData.append('sexo', document.querySelector('input[name="sexo"]:checked').value);
+            formData.append('interes', document.getElementById('interes').value);
+            formData.append('comunidad', document.getElementById('comunidad').value);
+            formData.append('comuna', document.getElementById('comuna').value);
+            formData.append('residencia', document.getElementById('residencia').value);
+            formData.append('fundaciones', document.getElementById('fundaciones').value);
+            formData.append('apto', document.getElementById('apto').value);
             
             // Enviar datos mediante fetch
             fetch(scriptURL, { method: 'POST', body: formData })
@@ -615,15 +718,17 @@
             .then(data => {
                 if (data.result === 'success') {
                     showModal('Éxito', 'Datos enviados correctamente a Google Sheets', true, true);
-                    document.getElementById('formVendedor').reset();
+                    document.getElementById('formRegistro').reset();
                     
-                    // Restablecer fechas después de enviar
-                    const hoy = new Date().toISOString().split('T')[0];
-                    document.getElementById('fecha_ingreso').value = hoy;
-                    
+                    // Restablecer fecha
                     const fechaNac = new Date();
                     fechaNac.setFullYear(fechaNac.getFullYear() - 25);
                     document.getElementById('fecha_nac').value = fechaNac.toISOString().split('T')[0];
+                    
+                    // Ocultar campos condicionales
+                    document.querySelectorAll('.conditional-field').forEach(field => {
+                        field.style.display = 'none';
+                    });
                 } else {
                     showModal('Error', 'Hubo un problema al guardar los datos', false, true);
                 }
@@ -635,7 +740,7 @@
         }
         
         // Manejador de envío de formulario
-        document.getElementById('formVendedor').addEventListener('submit', function(e) {
+        document.getElementById('formRegistro').addEventListener('submit', function(e) {
             e.preventDefault();
             
             if (validarFormulario()) {
@@ -644,17 +749,18 @@
             }
         });
         
-        // Configurar fechas por defecto al cargar la página
+        // Configurar al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
-            const hoy = new Date().toISOString().split('T')[0];
-            document.getElementById('fecha_ingreso').value = hoy;
-            
+            // Configurar fecha de nacimiento por defecto (25 años atrás)
             const fechaNac = new Date();
             fechaNac.setFullYear(fechaNac.getFullYear() - 25);
             document.getElementById('fecha_nac').value = fechaNac.toISOString().split('T')[0];
             
             // Configurar botón de modal
             document.getElementById('modalButton').addEventListener('click', hideModal);
+            
+            // Configurar campos condicionales
+            setupConditionalFields();
         });
     </script>
 </body>
