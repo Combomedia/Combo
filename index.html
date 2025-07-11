@@ -351,10 +351,6 @@
                                     <label><input type="radio" name="sexo" value="Femenino"> Femenino</label>
                                 </div>
                             </td>
-                            <td>
-                                <label for="fecha">Fecha *</label>
-                                <input type="date" id="fecha" required>
-                            </td>
                         </tr>
                         <tr>
                             <td colspan="2">
@@ -499,6 +495,29 @@
                     selectApto.appendChild(opcion);
                 }
             }
+// Modificar la función toggleFields
+function toggleFields() {
+    const interes = document.getElementById('interes').value;
+    
+    // Ocultar todos los campos
+    document.getElementById('comunaFields').style.display = 'none';
+    document.getElementById('aptoFields').style.display = 'none';
+    document.getElementById('fundacionFields').style.display = 'none';
+    
+    // Mostrar campos según selección
+    if (interes === 'Comuna') {
+        document.getElementById('comunaFields').style.display = '';
+        toggleAptoFields();
+    } else if (interes === 'Fundación') {
+        document.getElementById('fundacionFields').style.display = '';
+    }
+}
+
+// Modificar la función toggleAptoFields
+function toggleAptoFields() {
+    const residencia = document.getElementById('residencia').value;
+    document.getElementById('aptoFields').style.display = residencia ? '' : 'none';
+}
             
             // Generar opciones para apartamentos OF101-OF220
             for (let piso = 1; piso <= 2; piso++) {
