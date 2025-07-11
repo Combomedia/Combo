@@ -74,31 +74,17 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 25px;
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
         }
         
-        th {
-            background: linear-gradient(to right, #1a2980, #26d0ce);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-size: 1.1rem;
-        }
-        
-        td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        
-        tr:hover {
-            background-color: #e9f7fe;
+        .form-col {
+            flex: 1;
+            min-width: 250px;
+            padding: 0 10px;
+            margin-bottom: 15px;
         }
         
         label {
@@ -252,19 +238,6 @@
             display: none;
         }
         
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0 -10px;
-        }
-        
-        .form-col {
-            flex: 1;
-            min-width: 250px;
-            padding: 0 10px;
-            margin-bottom: 15px;
-        }
-        
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
@@ -306,6 +279,7 @@
                 <h3>Instrucciones:</h3>
                 <p>Por favor complete todos los campos del formulario. Los campos marcados con asterisco (*) son obligatorios.</p>
                 <p>Al seleccionar "Fundación" en el campo Interés, se mostrarán las fundaciones disponibles. Si selecciona "Comuna", podrá seleccionar una residencia y luego un apartamento.</p>
+                <p>Los datos se enviarán automáticamente a nuestra base de datos de Google Sheets.</p>
             </div>
             
             <div class="form-container">
@@ -417,7 +391,7 @@
             
             <div class="footer">
                 <p>Sistema de Registro Combomedia &copy; 2023</p>
-                <p>Los datos se guardan automáticamente en nuestra base de datos</p>
+                <p>Los datos se guardan automáticamente en nuestra base de datos de Google Sheets</p>
             </div>
         </div>
     </div>
@@ -593,7 +567,7 @@
         // Función para enviar datos a Google Sheets
         function enviarDatosGoogleSheets() {
             // URL del script de Google Apps (debes reemplazarlo con tu propio script)
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzzs5m-r2T-EmhKiapPivQLPHVNhheIv6eqH3lH88fS0d2VgTBQgx6EmNdYiv-bulXs/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbz1ZvglV_x01ZIYexU8uyO-kgckLQJA8UVCNcIcGG52bky3hvwZrJg6O5y73vIVDSbY/exec';
             
             // Obtener valores del formulario
             const formData = new FormData();
