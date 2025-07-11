@@ -247,6 +247,10 @@
             background: #1a2980;
         }
         
+        .conditional-field {
+            display: none;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
@@ -286,20 +290,16 @@
                 display: none;
             }
         }
-        
-        .conditional-field {
-            display: none;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <div class="logo">
-                <span class="logo-icon">📡</span>
+                <span class="logo-icon">📱</span>
                 COMBOMEDIA
             </div>
-            <h1>Formulario de Registro</h1>
+            <h1>Registro de Usuarios</h1>
             <p class="subtitle">Complete todos los datos requeridos para el registro en el sistema</p>
         </header>
         
@@ -311,7 +311,7 @@
             
             <div class="form-container">
                 <form id="formRegistro">
-                    <h2 class="section-title">Datos Personales</h2>
+                    <h2 class="section-title">Datos</h2>
                     <table>
                         <tr>
                             <td>
@@ -325,19 +325,25 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="email">Correo Electrónico *</label>
-                                <input type="email" id="email" placeholder="Ej: nombre@ejemplo.com" required>
+                                <label for="apellido">Apellido *</label>
+                                <input type="text" id="apellido" required>
                             </td>
                             <td>
-                                <label for="telefono">Teléfono *</label>
-                                <input type="tel" id="telefono" placeholder="Ej: 04121234567" required>
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" placeholder="Ej: nombre@ejemplo.com" required>
                             </td>
                         </tr>
                         <tr>
                             <td>
+                                <label for="telefono">Teléfono *</label>
+                                <input type="tel" id="telefono" placeholder="Ej: 04121234567" required>
+                            </td>
+                            <td>
                                 <label for="fecha_nac">Fecha de Nacimiento *</label>
                                 <input type="date" id="fecha_nac" required>
                             </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <label>Sexo *</label>
                                 <div class="radio-group">
@@ -345,57 +351,34 @@
                                     <label><input type="radio" name="sexo" value="Femenino"> Femenino</label>
                                 </div>
                             </td>
+                            <td>
+                                <label for="fecha">Fecha *</label>
+                                <input type="date" id="fecha" required>
+                            </td>
                         </tr>
-                    </table>
-                    
-                    <h2 class="section-title">Datos Adicionales</h2>
-                    <table>
                         <tr>
-                            <td>
+                            <td colspan="2">
                                 <label for="interes">Interés *</label>
-                                <select id="interes" required>
-                                    <option value="">Seleccione una opción</option>
-                                    <option value="Comunidad">Comunidad</option>
+                                <select id="interes" required onchange="toggleFields()">
+                                    <option value="">Seleccione un interés</option>
                                     <option value="Comuna">Comuna</option>
-                                    <option value="Fundacion">Fundación</option>
+                                    <option value="Fundación">Fundación</option>
                                 </select>
                             </td>
                         </tr>
                         
-                        <!-- Campo Comunidad (aparece cuando se selecciona "Comunidad") -->
-                        <tr id="comunidadField" class="conditional-field">
-                            <td>
-                                <label for="comunidad">Comunidad *</label>
-                                <select id="comunidad">
-                                    <option value="">Seleccione una comunidad</option>
-                                    <option value="Tejar">Tejar</option>
-                                    <option value="San Martin">San Martin</option>
-                                    <option value="Mohedano">Mohedano</option>
-                                    <option value="Anauco">Anauco</option>
-                                    <option value="Tajama">Tajama</option>
-                                    <option value="Catuche">Catuche</option>
-                                    <option value="Caroata">Caroata</option>
-                                    <option value="Tacagua">Tacagua</option>
-                                </select>
-                            </td>
-                        </tr>
-                        
-                        <!-- Campo Comuna (aparece cuando se selecciona "Comuna") -->
-                        <tr id="comunaField" class="conditional-field">
+                        <!-- Campos condicionales para Comuna -->
+                        <tr id="comunaFields" class="conditional-field">
                             <td>
                                 <label for="comuna">Comuna *</label>
-                                <select id="comuna">
+                                <select id="comuna" required>
                                     <option value="">Seleccione una comuna</option>
                                     <option value="Parque Central">Parque Central</option>
                                 </select>
                             </td>
-                        </tr>
-                        
-                        <!-- Campo Residencia (aparece cuando se selecciona "Comuna") -->
-                        <tr id="residenciaField" class="conditional-field">
                             <td>
                                 <label for="residencia">Residencia *</label>
-                                <select id="residencia">
+                                <select id="residencia" required onchange="toggleAptoFields()">
                                     <option value="">Seleccione una residencia</option>
                                     <option value="Tejar">Tejar</option>
                                     <option value="San Martin">San Martin</option>
@@ -409,25 +392,26 @@
                             </td>
                         </tr>
                         
-                        <!-- Campo Fundaciones (aparece cuando se selecciona "Fundación") -->
-                        <tr id="fundacionesField" class="conditional-field">
-                            <td>
-                                <label for="fundaciones">Fundaciones *</label>
-                                <select id="fundaciones">
-                                    <option value="">Seleccione una fundación</option>
-                                    <option value="Misión Ribas">Misión Ribas</option>
-                                    <option value="Fundación Causa Campesina">Fundación Causa Campesina</option>
-                                    <option value="Observatorio Popular de medios">Observatorio Popular de medios</option>
+                        <!-- Campos condicionales para Apto -->
+                        <tr id="aptoFields" class="conditional-field">
+                            <td colspan="2">
+                                <label for="apto">Apto *</label>
+                                <select id="apto" required>
+                                    <option value="">Seleccione un apartamento</option>
+                                    <!-- Se generarán dinámicamente con JavaScript -->
                                 </select>
                             </td>
                         </tr>
                         
-                        <!-- Campo Apto (aparece cuando se selecciona cualquier opción) -->
-                        <tr id="aptoField" class="conditional-field">
-                            <td>
-                                <label for="apto">Apto *</label>
-                                <select id="apto" required>
-                                    <option value="">Seleccione un apartamento</option>
+                        <!-- Campos condicionales para Fundación -->
+                        <tr id="fundacionFields" class="conditional-field">
+                            <td colspan="2">
+                                <label for="fundaciones">Fundaciones *</label>
+                                <select id="fundaciones" required>
+                                    <option value="">Seleccione una fundación</option>
+                                    <option value="Misión Ribas">Misión Ribas</option>
+                                    <option value="Fundación Causa Campesina">Fundación Causa Campesina</option>
+                                    <option value="Observatorio Popular de medios">Observatorio Popular de medios</option>
                                 </select>
                             </td>
                         </tr>
@@ -499,114 +483,70 @@
             document.getElementById('statusModal').style.display = 'none';
         }
         
-        // Llenar opciones de apartamentos
-        function fillAptoOptions() {
-            const aptoSelect = document.getElementById('apto');
-            aptoSelect.innerHTML = '<option value="">Seleccione un apartamento</option>';
+        // Función para generar opciones de apartamentos
+        function generarOpcionesApto() {
+            const selectApto = document.getElementById('apto');
+            selectApto.innerHTML = '<option value="">Seleccione un apartamento</option>';
             
-            // Generar apartamentos del 01A al 19Q
+            // Generar opciones para apartamentos 01A-19Q
             for (let bloque = 1; bloque <= 19; bloque++) {
-                const letras = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V'];
+                const letras = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q'];
                 for (let letra of letras) {
                     const bloqueStr = bloque < 10 ? `0${bloque}` : bloque;
-                    const option = document.createElement('option');
-                    option.value = `${bloqueStr}${letra}`;
-                    option.textContent = `${bloqueStr}${letra}`;
-                    aptoSelect.appendChild(option);
+                    const opcion = document.createElement('option');
+                    opcion.value = `${bloqueStr}${letra}`;
+                    opcion.textContent = `${bloqueStr}${letra}`;
+                    selectApto.appendChild(opcion);
                 }
             }
             
-            // Generar oficinas OF101-OF120, OF201-OF220
+            // Generar opciones para apartamentos OF101-OF220
             for (let piso = 1; piso <= 2; piso++) {
-                for (let num = 1; num <= 20; num++) {
-                    const numStr = num < 10 ? `0${num}` : num;
-                    const option = document.createElement('option');
-                    option.value = `OF${piso}${numStr}`;
-                    option.textContent = `OF${piso}${numStr}`;
-                    aptoSelect.appendChild(option);
+                for (let numero = 1; numero <= 20; numero++) {
+                    const opcion = document.createElement('option');
+                    const numStr = numero < 10 ? `0${numero}` : numero;
+                    opcion.value = `OF${piso}${numStr}`;
+                    opcion.textContent = `OF${piso}${numStr}`;
+                    selectApto.appendChild(opcion);
                 }
             }
             
-            // Agregar PH
-            const phOption = document.createElement('option');
-            phOption.value = 'PH';
-            phOption.textContent = 'PH';
-            aptoSelect.appendChild(phOption);
+            // Agregar opción PH
+            const opcionPH = document.createElement('option');
+            opcionPH.value = 'PH';
+            opcionPH.textContent = 'PH';
+            selectApto.appendChild(opcionPH);
         }
         
-        // Manejar campos condicionales
-        function setupConditionalFields() {
-            const interesSelect = document.getElementById('interes');
-            const comunidadField = document.getElementById('comunidadField');
-            const comunaField = document.getElementById('comunaField');
-            const residenciaField = document.getElementById('residenciaField');
-            const fundacionesField = document.getElementById('fundacionesField');
-            const aptoField = document.getElementById('aptoField');
+        // Función para mostrar/ocultar campos según selección
+        function toggleFields() {
+            const interes = document.getElementById('interes').value;
             
-            // Ocultar todos los campos condicionales inicialmente
-            comunidadField.style.display = 'none';
-            comunaField.style.display = 'none';
-            residenciaField.style.display = 'none';
-            fundacionesField.style.display = 'none';
-            aptoField.style.display = 'none';
+            // Ocultar todos los campos condicionales
+            document.getElementById('comunaFields').style.display = 'none';
+            document.getElementById('aptoFields').style.display = 'none';
+            document.getElementById('fundacionFields').style.display = 'none';
             
-            // Llenar opciones de apartamentos
-            fillAptoOptions();
+            // Mostrar campos según selección
+            if (interes === 'Comuna') {
+                document.getElementById('comunaFields').style.display = '';
+                toggleAptoFields();
+            } else if (interes === 'Fundación') {
+                document.getElementById('fundacionFields').style.display = '';
+            }
+        }
+        
+        // Función para mostrar/ocultar campos de Apto según selección de residencia
+        function toggleAptoFields() {
+            const residencia = document.getElementById('residencia').value;
             
-            // Evento para cambio en interés
-            interesSelect.addEventListener('change', function() {
-                const interes = this.value;
-                
-                // Ocultar todos los campos
-                comunidadField.style.display = 'none';
-                comunaField.style.display = 'none';
-                residenciaField.style.display = 'none';
-                fundacionesField.style.display = 'none';
-                aptoField.style.display = 'none';
-                
-                // Resetear valores
-                document.getElementById('comunidad').value = '';
-                document.getElementById('comuna').value = '';
-                document.getElementById('residencia').value = '';
-                document.getElementById('fundaciones').value = '';
-                document.getElementById('apto').value = '';
-                
-                // Mostrar campos según selección
-                if (interes === 'Comunidad') {
-                    comunidadField.style.display = 'table-row';
-                } else if (interes === 'Comuna') {
-                    comunaField.style.display = 'table-row';
-                } else if (interes === 'Fundacion') {
-                    fundacionesField.style.display = 'table-row';
-                }
-            });
+            // Ocultar campos de Apto
+            document.getElementById('aptoFields').style.display = 'none';
             
-            // Evento para mostrar residencia cuando se selecciona comuna
-            document.getElementById('comuna').addEventListener('change', function() {
-                if (this.value) {
-                    residenciaField.style.display = 'table-row';
-                } else {
-                    residenciaField.style.display = 'none';
-                    aptoField.style.display = 'none';
-                }
-            });
-            
-            // Evento para mostrar apto cuando se selecciona comunidad, residencia o fundación
-            const showAptoFields = [document.getElementById('comunidad'), 
-                                  document.getElementById('residencia'), 
-                                  document.getElementById('fundaciones')];
-            
-            showAptoFields.forEach(field => {
-                if (field) {
-                    field.addEventListener('change', function() {
-                        if (this.value) {
-                            aptoField.style.display = 'table-row';
-                        } else {
-                            aptoField.style.display = 'none';
-                        }
-                    });
-                }
-            });
+            // Mostrar campos de Apto si hay una residencia seleccionada
+            if (residencia) {
+                document.getElementById('aptoFields').style.display = '';
+            }
         }
         
         // Función para validar formulario
@@ -626,8 +566,8 @@
             }
 
             // Validación de correo
-            const correo = document.getElementById('email').value;
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+            const email = document.getElementById('email').value;
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 showModal('Error', 'Correo electrónico inválido: por favor ingrese un correo válido', false, true);
                 return false;
             }
@@ -640,48 +580,45 @@
                 return false;
             }
             
-            // Validar sexo
+            // Validación de sexo
             const sexo = document.querySelector('input[name="sexo"]:checked');
             if (!sexo) {
                 showModal('Error', 'Por favor seleccione el sexo', false, true);
                 return false;
             }
             
-            // Validar campos condicionales
+            // Validación de interés
             const interes = document.getElementById('interes').value;
+            if (!interes) {
+                showModal('Error', 'Por favor seleccione el interés', false, true);
+                return false;
+            }
             
-            if (interes === 'Comunidad') {
-                const comunidad = document.getElementById('comunidad').value;
-                if (!comunidad) {
-                    showModal('Error', 'Por favor seleccione una comunidad', false, true);
-                    return false;
-                }
-            } else if (interes === 'Comuna') {
+            // Validación de campos condicionales
+            if (interes === 'Comuna') {
                 const comuna = document.getElementById('comuna').value;
-                const residencia = document.getElementById('residencia').value;
-                
                 if (!comuna) {
                     showModal('Error', 'Por favor seleccione una comuna', false, true);
                     return false;
                 }
                 
+                const residencia = document.getElementById('residencia').value;
                 if (!residencia) {
                     showModal('Error', 'Por favor seleccione una residencia', false, true);
                     return false;
                 }
-            } else if (interes === 'Fundacion') {
+                
+                const apto = document.getElementById('apto').value;
+                if (!apto) {
+                    showModal('Error', 'Por favor seleccione un apartamento', false, true);
+                    return false;
+                }
+            } else if (interes === 'Fundación') {
                 const fundaciones = document.getElementById('fundaciones').value;
                 if (!fundaciones) {
                     showModal('Error', 'Por favor seleccione una fundación', false, true);
                     return false;
                 }
-            }
-            
-            // Validar apto
-            const apto = document.getElementById('apto').value;
-            if (!apto) {
-                showModal('Error', 'Por favor seleccione un apartamento', false, true);
-                return false;
             }
 
             return true;
@@ -690,22 +627,33 @@
         // Función para enviar datos a Google Sheets
         function enviarDatosGoogleSheets() {
             // URL del script de Google Apps (debes reemplazarlo con tu propio script)
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxg1-n_nAJAcHB-fKfQM-bTPGZfwboERhGHvMh7epNyn_J8MvTjA0o3WiuryEPrnqb1xA/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxzTcJkraMkcQnutrtFoQr0NQS33S7LeLVMnI4cR5JDXw22P9q2L7QSEAUn_53uprOx/exec';
             
             // Obtener valores del formulario
             const formData = new FormData();
             formData.append('cedula', document.getElementById('cedula').value);
             formData.append('nombre', document.getElementById('nombre').value);
+            formData.append('apellido', document.getElementById('apellido').value);
             formData.append('email', document.getElementById('email').value);
             formData.append('telefono', document.getElementById('telefono').value);
             formData.append('fecha_nac', document.getElementById('fecha_nac').value);
             formData.append('sexo', document.querySelector('input[name="sexo"]:checked').value);
+            formData.append('fecha', document.getElementById('fecha').value);
             formData.append('interes', document.getElementById('interes').value);
-            formData.append('comunidad', document.getElementById('comunidad').value);
-            formData.append('comuna', document.getElementById('comuna').value);
-            formData.append('residencia', document.getElementById('residencia').value);
-            formData.append('fundaciones', document.getElementById('fundaciones').value);
-            formData.append('apto', document.getElementById('apto').value);
+            
+            // Agregar campos según interés seleccionado
+            const interes = document.getElementById('interes').value;
+            if (interes === 'Comuna') {
+                formData.append('comuna', document.getElementById('comuna').value);
+                formData.append('residencia', document.getElementById('residencia').value);
+                formData.append('apto', document.getElementById('apto').value);
+                formData.append('fundaciones', '');
+            } else if (interes === 'Fundación') {
+                formData.append('comuna', '');
+                formData.append('residencia', '');
+                formData.append('apto', '');
+                formData.append('fundaciones', document.getElementById('fundaciones').value);
+            }
             
             // Enviar datos mediante fetch
             fetch(scriptURL, { method: 'POST', body: formData })
@@ -720,15 +668,12 @@
                     showModal('Éxito', 'Datos enviados correctamente a Google Sheets', true, true);
                     document.getElementById('formRegistro').reset();
                     
-                    // Restablecer fecha
-                    const fechaNac = new Date();
-                    fechaNac.setFullYear(fechaNac.getFullYear() - 25);
-                    document.getElementById('fecha_nac').value = fechaNac.toISOString().split('T')[0];
+                    // Restablecer fecha después de enviar
+                    const hoy = new Date().toISOString().split('T')[0];
+                    document.getElementById('fecha').value = hoy;
                     
-                    // Ocultar campos condicionales
-                    document.querySelectorAll('.conditional-field').forEach(field => {
-                        field.style.display = 'none';
-                    });
+                    // Restablecer campos condicionales
+                    toggleFields();
                 } else {
                     showModal('Error', 'Hubo un problema al guardar los datos', false, true);
                 }
@@ -749,9 +694,11 @@
             }
         });
         
-        // Configurar al cargar la página
+        // Configurar fechas por defecto al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
-            // Configurar fecha de nacimiento por defecto (25 años atrás)
+            const hoy = new Date().toISOString().split('T')[0];
+            document.getElementById('fecha').value = hoy;
+            
             const fechaNac = new Date();
             fechaNac.setFullYear(fechaNac.getFullYear() - 25);
             document.getElementById('fecha_nac').value = fechaNac.toISOString().split('T')[0];
@@ -759,8 +706,8 @@
             // Configurar botón de modal
             document.getElementById('modalButton').addEventListener('click', hideModal);
             
-            // Configurar campos condicionales
-            setupConditionalFields();
+            // Generar opciones de apartamentos
+            generarOpcionesApto();
         });
     </script>
 </body>
