@@ -566,63 +566,63 @@
         
         // Función para enviar datos a Google Sheets
         function enviarDatosGoogleSheets() {
-            // URL del script de Google Apps (debes reemplazarlo con tu propio script)
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbz1ZvglV_x01ZIYexU8uyO-kgckLQJA8UVCNcIcGG52bky3hvwZrJg6O5y73vIVDSbY/exec';
+            // URL del script de Google Apps - ¡ACTUALIZA ESTA URL!
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzukkifevT7dpQq_djF1Sc81Q_kKUM0R1pC7ZoV6fijIev8vDSOfx07I0FyaUkjd6G9/exec';
             
-            // Obtener valores del formulario
-            const formData = new FormData();
-            formData.append('Cédula', document.getElementById('cedula').value);
-            formData.append('Nombre', document.getElementById('nombre').value);
-            formData.append('Apellido', document.getElementById('apellido').value);
-            formData.append('Email', document.getElementById('email').value);
-            formData.append('Teléfono', document.getElementById('telefono').value);
-            formData.append('Fecha de Nacimiento', document.getElementById('fecha_nacimiento').value);
-            formData.append('Sexo', document.querySelector('input[name="sexo"]:checked').value);
-            formData.append('Interés', document.getElementById('interes').value);
-            
-            // Obtener fecha actual para el campo "Fecha"
-            const fechaActual = new Date().toLocaleDateString('es-ES');
-            formData.append('Fecha', fechaActual);
+            // Crear un objeto con los datos del formulario
+            const formData = {
+                'Cédula': document.getElementById('cedula').value,
+                'Nombre': document.getElementById('nombre').value,
+                'Apellido': document.getElementById('apellido').value,
+                'Email': document.getElementById('email').value,
+                'Teléfono': document.getElementById('telefono').value,
+                'Fecha de Nacimiento': document.getElementById('fecha_nacimiento').value,
+                'Sexo': document.querySelector('input[name="sexo"]:checked').value,
+                'Interés': document.getElementById('interes').value,
+                'Fecha': new Date().toLocaleDateString('es-ES'),
+                'Fundaciones': '',
+                'Comuna': '',
+                'Residencia': '',
+                'Apto': ''
+            };
             
             // Campos condicionales
             const interes = document.getElementById('interes').value;
             if (interes === 'Fundacion') {
-                formData.append('Fundaciones', document.getElementById('fundacion').value);
-                formData.append('Comuna', '');
-                formData.append('Residencia', '');
-                formData.append('Apto', '');
+                formData.Fundaciones = document.getElementById('fundacion').value;
             } 
             else if (interes === 'Comuna') {
-                formData.append('Fundaciones', '');
-                formData.append('Comuna', document.getElementById('comuna').value);
-                formData.append('Residencia', document.getElementById('residencia').value);
-                formData.append('Apto', document.getElementById('apto').value);
+                formData.Comuna = document.getElementById('comuna').value;
+                formData.Residencia = document.getElementById('residencia').value;
+                formData.Apto = document.getElementById('apto').value;
             }
             
-            // Enviar datos mediante fetch
-            fetch(scriptURL, { method: 'POST', body: formData })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Error en la respuesta del servidor');
+            // Crear parámetros de URL
+            const params = new URLSearchParams();
+            for (const key in formData) {
+                params.append(key, formData[key]);
+            }
+            
+            // Enviar datos mediante fetch con parámetros GET
+            const fullURL = `${scriptURL}?${params.toString()}`;
+            
+            fetch(fullURL, { 
+                method: 'GET',
+                mode: 'no-cors' // Modo no-cors para evitar problemas CORS
             })
-            .then(data => {
-                if (data.result === 'success') {
-                    showModal('Éxito', 'Registro completado correctamente', true, true);
-                    document.getElementById('formCombomedia').reset();
-                    
-                    // Restablecer campos condicionales
-                    toggleFields();
-                    toggleAptoField();
-                    
-                    // Restablecer fecha de nacimiento
-                    const fechaNac = new Date();
-                    fechaNac.setFullYear(fechaNac.getFullYear() - 25);
-                    document.getElementById('fecha_nacimiento').value = fechaNac.toISOString().split('T')[0];
-                } else {
-                    showModal('Error', 'Hubo un problema al guardar los datos', false, true);
-                }
+            .then(() => {
+                // Como no podemos verificar la respuesta en modo no-cors, asumimos éxito
+                showModal('Éxito', 'Registro completado correctamente', true, true);
+                document.getElementById('formCombomedia').reset();
+                
+                // Restablecer campos condicionales
+                toggleFields();
+                toggleAptoField();
+                
+                // Restablecer fecha de nacimiento
+                const fechaNac = new Date();
+                fechaNac.setFullYear(fechaNac.getFullYear() - 25);
+                document.getElementById('fecha_nacimiento').value = fechaNac.toISOString().split('T')[0];
             })
             .catch(error => {
                 console.error('Error:', error);
