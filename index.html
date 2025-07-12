@@ -566,69 +566,58 @@
         
         // Función para enviar datos a Google Sheets
         function enviarDatosGoogleSheets() {
-            // URL del script de Google Apps - ¡ACTUALIZA ESTA URL!
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzukkifevT7dpQq_djF1Sc81Q_kKUM0R1pC7ZoV6fijIev8vDSOfx07I0FyaUkjd6G9/exec';
-            
-            // Crear un objeto con los datos del formulario
-            const formData = {
-                'Cédula': document.getElementById('cedula').value,
-                'Nombre': document.getElementById('nombre').value,
-                'Apellido': document.getElementById('apellido').value,
-                'Email': document.getElementById('email').value,
-                'Teléfono': document.getElementById('telefono').value,
-                'Fecha de Nacimiento': document.getElementById('fecha_nacimiento').value,
-                'Sexo': document.querySelector('input[name="sexo"]:checked').value,
-                'Interés': document.getElementById('interes').value,
-                'Fecha': new Date().toLocaleDateString('es-ES'),
-                'Fundaciones': '',
-                'Comuna': '',
-                'Residencia': '',
-                'Apto': ''
-            };
-            
-            // Campos condicionales
-            const interes = document.getElementById('interes').value;
-            if (interes === 'Fundacion') {
-                formData.Fundaciones = document.getElementById('fundacion').value;
-            } 
-            else if (interes === 'Comuna') {
-                formData.Comuna = document.getElementById('comuna').value;
-                formData.Residencia = document.getElementById('residencia').value;
-                formData.Apto = document.getElementById('apto').value;
-            }
-            
-            // Crear parámetros de URL
-            const params = new URLSearchParams();
-            for (const key in formData) {
-                params.append(key, formData[key]);
-            }
-            
-            // Enviar datos mediante fetch con parámetros GET
-            const fullURL = `${scriptURL}?${params.toString()}`;
-            
-            fetch(fullURL, { 
-                method: 'GET',
-                mode: 'no-cors' // Modo no-cors para evitar problemas CORS
-            })
-            .then(() => {
-                // Como no podemos verificar la respuesta en modo no-cors, asumimos éxito
-                showModal('Éxito', 'Registro completado correctamente', true, true);
-                document.getElementById('formCombomedia').reset();
-                
-                // Restablecer campos condicionales
-                toggleFields();
-                toggleAptoField();
-                
-                // Restablecer fecha de nacimiento
-                const fechaNac = new Date();
-                fechaNac.setFullYear(fechaNac.getFullYear() - 25);
-                document.getElementById('fecha_nacimiento').value = fechaNac.toISOString().split('T')[0];
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showModal('Error', 'Hubo un problema al enviar los datos: ' + error.message, false, true);
-            });
-        }
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyMFYOHaE7EnCYbT5vXm-h3E-jQwSMa8NXJ_sJJRC75hlnmbgpJZdjb1UaE39qTTAhj/exec';
+  
+  const formData = {
+    'Cédula': document.getElementById('cedula').value,
+    'Nombre': document.getElementById('nombre').value,
+    'Apellido': document.getElementById('apellido').value,
+    'Email': document.getElementById('email').value,
+    'Teléfono': document.getElementById('telefono').value,
+    'Fecha de Nacimiento': document.getElementById('fecha_nacimiento').value,
+    'Sexo': document.querySelector('input[name="sexo"]:checked').value,
+    'Interés': document.getElementById('interes').value,
+    'Fundaciones': '',
+    'Comuna': '',
+    'Residencia': '',
+    'Apto': ''
+  };
+  
+  // Campos condicionales
+  const interes = document.getElementById('interes').value;
+  if (interes === 'Fundacion') {
+    formData.Fundaciones = document.getElementById('fundacion').value;
+  } else if (interes === 'Comuna') {
+    formData.Comuna = document.getElementById('comuna').value;
+    formData.Residencia = document.getElementById('residencia').value;
+    formData.Apto = document.getElementById('apto').value;
+  }
+  
+  // Enviar con POST y JSON
+  fetch(scriptURL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      showModal('Éxito', 'Datos guardados en Google Sheets', true, true);
+      document.getElementById('formCombomedia').reset();
+      // Restablecer campos condicionales
+      toggleFields();
+      // Restablecer fecha de nacimiento
+      const fechaNac = new Date();
+      fechaNac.setFullYear(fechaNac.getFullYear() - 25);
+      document.getElementById('fecha_nacimiento').value = fechaNac.toISOString().split('T')[0];
+    } else {
+      throw new Error('Error en Google Sheets: ' + data.error);
+    }
+  })
+  .catch(error => {
+    showModal('Error', 'Hubo un problema: ' + error.message, false, true);
+  });
+}
         
         // Manejador de envío de formulario
         document.getElementById('formCombomedia').addEventListener('submit', function(e) {
