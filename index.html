@@ -152,6 +152,10 @@
             display: inline-block;
         }
         
+        .btn.loading i {
+            display: none;
+        }
+        
         .spinner {
             display: none;
             width: 20px;
@@ -203,6 +207,16 @@
             display: none;
         }
         
+        .error-message {
+            background: #e74c3c;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
         @media (max-width: 768px) {
             .form-group {
                 flex: 1 0 100%;
@@ -233,13 +247,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cedula" class="required">Cédula</label>
-                        <input type="text" id="cedula" name="cedula" class="form-control" placeholder="Ingrese su cédula">
+                        <input type="text" id="cedula" name="Cédula" class="form-control" placeholder="Ingrese su cédula">
                         <div class="error" id="cedulaError">Por favor ingrese una cédula válida</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="nombre" class="required">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese su nombre">
+                        <input type="text" id="nombre" name="Nombre" class="form-control" placeholder="Ingrese su nombre">
                         <div class="error" id="nombreError">Por favor ingrese su nombre</div>
                     </div>
                 </div>
@@ -247,13 +261,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="apellido" class="required">Apellido</label>
-                        <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Ingrese su apellido">
+                        <input type="text" id="apellido" name="Apellido" class="form-control" placeholder="Ingrese su apellido">
                         <div class="error" id="apellidoError">Por favor ingrese su apellido</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="email" class="required">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="ejemplo@dominio.com">
+                        <input type="email" id="email" name="Email" class="form-control" placeholder="ejemplo@dominio.com">
                         <div class="error" id="emailError">Por favor ingrese un email válido</div>
                     </div>
                 </div>
@@ -261,13 +275,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="telefono" class="required">Teléfono</label>
-                        <input type="tel" id="telefono" name="telefono" class="form-control" placeholder="Ingrese su teléfono">
+                        <input type="tel" id="telefono" name="Teléfono" class="form-control" placeholder="Ingrese su teléfono">
                         <div class="error" id="telefonoError">Por favor ingrese un teléfono válido</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="nacimiento" class="required">Fecha de Nacimiento</label>
-                        <input type="date" id="nacimiento" name="nacimiento" class="form-control">
+                        <input type="date" id="nacimiento" name="Fecha de Nacimiento" class="form-control">
                         <div class="error" id="nacimientoError">Por favor ingrese una fecha válida</div>
                     </div>
                 </div>
@@ -275,7 +289,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="sexo" class="required">Sexo</label>
-                        <select id="sexo" name="sexo" class="form-control">
+                        <select id="sexo" name="Sexo" class="form-control">
                             <option value="">Seleccione su sexo</option>
                             <option value="masculino">Masculino</option>
                             <option value="femenino">Femenino</option>
@@ -286,13 +300,13 @@
                     
                     <div class="form-group">
                         <label for="fecha" class="required">Fecha de Envío</label>
-                        <input type="date" id="fecha" name="fecha" class="form-control" readonly>
+                        <input type="date" id="fecha" name="Fecha" class="form-control" readonly>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="interes" class="required">Interés</label>
-                    <select id="interes" name="interes" class="form-control">
+                    <select id="interes" name="Interés" class="form-control">
                         <option value="">Seleccione su interés</option>
                         <option value="comuna">Comuna</option>
                         <option value="fundacion">Fundación</option>
@@ -304,7 +318,7 @@
                 <div id="comunaSection" class="conditional-section">
                     <div class="form-group">
                         <label for="comuna" class="required">Comuna</label>
-                        <select id="comuna" name="comuna" class="form-control">
+                        <select id="comuna" name="Comuna" class="form-control">
                             <option value="">Seleccione una comuna</option>
                             <option value="parque-central">Parque Central</option>
                         </select>
@@ -314,7 +328,7 @@
                     <div id="residenciaSection" class="conditional-section">
                         <div class="form-group">
                             <label for="residencia" class="required">Residencia</label>
-                            <select id="residencia" name="residencia" class="form-control">
+                            <select id="residencia" name="Residencia" class="form-control">
                                 <option value="">Seleccione una residencia</option>
                                 <option value="tejar">Tejar</option>
                                 <option value="san-martin">San Martin</option>
@@ -331,7 +345,7 @@
                         <div id="aptoSection" class="conditional-section">
                             <div class="form-group">
                                 <label for="apto" class="required">Apto</label>
-                                <select id="apto" name="apto" class="form-control">
+                                <select id="apto" name="Apto" class="form-control">
                                     <option value="">Seleccione un apartamento</option>
                                     <option value="01A">01A</option>
                                     <option value="01B">01B</option>
@@ -354,7 +368,7 @@
                 <div id="fundacionSection" class="conditional-section">
                     <div class="form-group">
                         <label for="fundacion" class="required">Fundación</label>
-                        <select id="fundacion" name="fundacion" class="form-control">
+                        <select id="fundacion" name="Fundaciones" class="form-control">
                             <option value="">Seleccione una fundación</option>
                             <option value="mision-ribas">Misión Ribas</option>
                             <option value="causa-campesina">Fundación Causa Campesina</option>
@@ -371,6 +385,10 @@
                 
                 <div class="success-message" id="successMessage">
                     <i class="fas fa-check-circle"></i> ¡Formulario enviado con éxito! Los datos han sido guardados.
+                </div>
+                
+                <div class="error-message" id="errorMessage">
+                    <i class="fas fa-exclamation-triangle"></i> <span id="errorText">Error al enviar el formulario</span>
                 </div>
             </form>
         </div>
@@ -397,6 +415,8 @@
             const form = document.getElementById('combomediaForm');
             const submitBtn = document.getElementById('submitBtn');
             const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
             
             // Manejar cambios en el campo de interés
             interesSelect.addEventListener('change', function() {
@@ -448,6 +468,10 @@
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 let isValid = true;
+                
+                // Ocultar mensajes anteriores
+                successMessage.style.display = 'none';
+                errorMessage.style.display = 'none';
                 
                 // Validar campos básicos
                 const requiredFields = [
@@ -561,16 +585,31 @@
                     // Recolectar datos del formulario
                     const formData = new FormData(form);
                     
-                    // URL de Google Apps Script (debes reemplazarlo con tu propio script)
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbxgrhLn-3ZQmVGvEvHU2ZNM0geEWCYdfjfsoVWfDU53T5YlxaKwS-eA1thFXUa0KGA4pQ/exec';
+                    // Convertir FormData a objeto JSON
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
                     
-                    // Enviar datos a Google Sheets
+                    // URL de Google Apps Script (VERIFICAR QUE ESTÁ CORRECTA)
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbxeHfa7oDmU2OFHTeom-vO-xMVK0CvB24AB9xBbIAZtXlc3QTNmLO2aCigf_sCQX1EujQ/exec';
+                    
+                    // Enviar datos a Google Sheets usando POST
                     fetch(scriptURL, {
                         method: 'POST',
-                        body: formData
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
                     })
                     .then(response => {
                         if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Error en la respuesta del servidor');
+                    })
+                    .then(data => {
+                        if (data.result === 'success') {
                             // Mostrar mensaje de éxito
                             successMessage.style.display = 'block';
                             
@@ -591,12 +630,13 @@
                             // Restablecer fecha actual
                             document.getElementById('fecha').value = formattedDate;
                         } else {
-                            throw new Error('Error en la respuesta del servidor');
+                            throw new Error(data.error || 'Error desconocido del servidor');
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('Ocurrió un error al enviar el formulario. Por favor inténtelo de nuevo.');
+                        errorText.textContent = 'Error al enviar: ' + error.message;
+                        errorMessage.style.display = 'block';
                     })
                     .finally(() => {
                         // Ocultar spinner
