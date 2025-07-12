@@ -566,8 +566,8 @@
         
         // Función para enviar datos a Google Sheets
         function enviarDatosGoogleSheets() {
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbyMFYOHaE7EnCYbT5vXm-h3E-jQwSMa8NXJ_sJJRC75hlnmbgpJZdjb1UaE39qTTAhj/exec';
-  
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxjgnKcq0GET2u37WfAP_cpxV3J0j1jnWtsKR-ie85jh6BlaIkqWTIctnX_7weRkJEC/exec'; // ¡ACTUALIZA ESTO!
+
   const formData = {
     'Cédula': document.getElementById('cedula').value,
     'Nombre': document.getElementById('nombre').value,
@@ -593,25 +593,31 @@
     formData.Apto = document.getElementById('apto').value;
   }
   
-  // Enviar con POST y JSON
-  fetch(scriptURL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData)
+  // Primero enviar solicitud OPTIONS (preflight)
+  fetch(`${scriptURL}?method=options&origin=${encodeURIComponent(window.location.origin)}`, {
+    method: 'GET'
+  })
+  .then(() => {
+    // Luego enviar los datos con POST
+    return fetch(scriptURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
   })
   .then(response => response.json())
   .then(data => {
     if (data.success) {
       showModal('Éxito', 'Datos guardados en Google Sheets', true, true);
       document.getElementById('formCombomedia').reset();
-      // Restablecer campos condicionales
       toggleFields();
-      // Restablecer fecha de nacimiento
       const fechaNac = new Date();
       fechaNac.setFullYear(fechaNac.getFullYear() - 25);
       document.getElementById('fecha_nacimiento').value = fechaNac.toISOString().split('T')[0];
     } else {
-      throw new Error('Error en Google Sheets: ' + data.error);
+      throw new Error(data.error || 'Error desconocido');
     }
   })
   .catch(error => {
